@@ -1,0 +1,88 @@
+<!--
+  #%L
+  telemee
+  %%
+  Copyright (C) 2013 - 2014 Thomas Struller-Baumann
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<div class="form-horizontal" role="form">
+   <div class="form-group">
+      <label for="appSelect" class="col-sm-2 control-label">App:</label>
+      <div class="col-sm-9">
+         <select class="form-control" id="appSelect" ng-model="appSelected" ng-options="app.name for app in apps" ng-click="showLogentries()">
+            <option value="">-- please choose app --</option>
+         </select>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="channelSelect" class="col-sm-2 control-label">Channel:</label>
+      <div class="col-sm-9">
+         <select class="form-control" id="channelSelect" ng-model="channelSelected" ng-options="channel.name for channel in channels" ng-click="showLogentries()">
+            <option value="">{{choose_channel}}</option>
+         </select>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="lastCount" class="col-sm-2 control-label">Show newest:</label>
+      <div class="col-sm-9">
+         <input class="form-control" id="lastCount" type="number" min="0" ng-model="lastCount" ng-change="showLogentries()"/>
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="autoupdate" class="col-sm-2 control-label">Autoupdate</label>
+      <div class="col-sm-9" id="autoupdate">
+         <button id="btnStart" class="btn btn-primary btn-mini" ng-click="start()" ng-disabled="btnStart_disabled">Start</button>
+         <button id="btnStop" class="btn btn-primary btn-mini" ng-click="stop()" ng-disabled="btnStop_disabled">Stop</button>
+         Current interval: {{configuration.interval}}ms
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="filter" class="col-sm-2 control-label">Filter</label>
+      <div class="col-sm-9" id="filter">
+         By any attribute: <input type="text" ng-model="filter.anyAttribute" />
+         By Description: <input type="text" ng-model="filter.description" />
+      </div>
+   </div>
+</div>
+
+<table class="table table-striped table-hover">
+   <thead>
+      <tr>
+         <th>
+            <a href="" ng-click="predicate = 'id';
+               reverse = !reverse">ID</a>
+         </th>
+         <th ng-repeat="channelAttribute in channelAttributes">
+            <a href="" ng-click="setPredicateAndReverse(channelAttribute);">{{channelAttribute.name}}</a>
+         </th>
+         <th>
+            <a href="" ng-click="predicate = 'description';
+               reverse = !reverse">Description</a>
+         </th>
+      </tr>
+   </thead>
+
+   <tbody>
+      <tr ng-repeat="logentry in logentries| filter:filterLogEntries | orderBy:sortFunction:reverse">
+         <td>{{logentry.id}}</td>
+         <td ng-repeat="channelAttribute in channelAttributes">
+            {{ LogValue.getLogValueForAttr(logentry, channelAttribute)}}
+         </td>
+         <td>{{logentry.description}}</td>
+      </tr>
+   </tbody>
+</table>

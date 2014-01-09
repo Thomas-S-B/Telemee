@@ -1,0 +1,101 @@
+<!--
+  #%L
+  telemee
+  %%
+  Copyright (C) 2013 - 2014 Thomas Struller-Baumann
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<div class="form-horizontal" role="form">
+   <div id="selection" class="text-center">
+      <div class="form-group">
+         <label for="appSelect" class="col-sm-2 control-label">App:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="appSelect" ng-model="appSelected" ng-options="app.name for app in apps" ng-click="updateGraph(true, true)">
+               <option value="">{{choose_app}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="channelSelect" class="col-sm-2 control-label">Channel:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="channelSelect" ng-model="channelSelected" ng-options="channel.name for channel in channels" ng-click="updateGraph(true, true)">
+               <option value="">{{choose_channel}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="xChannelAttributeSelect" class="col-sm-2 control-label">X-Axis:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="xChannelAttributeSelect" ng-model="xChannelAttributeSelect" ng-options="channelAttribute.name for channelAttribute in channelAttributes" ng-click="updateGraph(false, true)">
+               <option value="">{{choose_channelattribute}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="yChannelAttributeSelect" class="col-sm-2 control-label">Y-Axis:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="yChannelAttributeSelect" ng-model="yChannelAttributeSelect" ng-options="channelAttribute.name for channelAttribute in channelAttributes" ng-click="updateGraph(false, true)">
+               <option value="">{{choose_channelattribute}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="groupBySelect" class="col-sm-2 control-label">Group by:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="groupBySelect" ng-model="groupBySelect" ng-options="channelAttribute.name for channelAttribute in channelAttributes" ng-click="updateGraph(false, true)">
+               <option value="">{{choose_groupBy}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="interpolationSelect" class="col-sm-2 control-label">Interpolation:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="interpolationSelect" ng-model="interpolation" ng-options="interpolation.name for interpolation in interpolations" ng-click="updateGraph(false, true)">
+               <option value="">{{choose_interpolation}}</option>
+            </select>
+         </div>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="lastCount" class="col-sm-2 control-label">Show newest:</label>
+      <div class="col-sm-9">
+         <input class="form-control" id="lastCount" type="number" min="0" ng-model="lastCount" ng-change="updateGraph(true, false)"/>
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="col-sm-2 control-label">Autoupdate:</label>
+      <div class="col-sm-9" id="autoupdate">
+         <button id="btnStart" class="btn btn-primary btn-mini" ng-click="startAutoUpdate()" ng-disabled="btnStart_disabled">Start</button>
+         <button id="btnStop" class="btn btn-primary btn-mini" ng-click="stopAutoUpdate()" ng-disabled="btnStop_disabled">Stop</button>
+         Current interval: {{configuration.interval}}ms
+      </div>
+   </div>
+   <div class="text-center" id="toggleSelection">
+      <button id="btnToggleSelection" class="btn btn-primary btn-mini" ng-click="toggleSelection()">Close selections</button>
+   </div>
+</div>
+
+<div id="chart">
+   <svg></svg>
+</div>
+
+<script src="../lib/nvd3/src/tooltip.js"></script>
+<script src="../lib/nvd3/src/utils.js"></script>
+<script src="../lib/nvd3/src/models/legend.js"></script>
+<script src="../lib/nvd3/src/models/axis.js"></script>
+<script src="../lib/nvd3/src/models/scatter.js"></script>
+<script src="../lib/nvd3/src/models/line.js"></script>
+<script src="../lib/nvd3/src/models/lineWithFocusChart.js"></script>
+<script src="../lib/nvd3/stream_layers.js"></script>

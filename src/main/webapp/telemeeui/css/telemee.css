@@ -1,0 +1,46 @@
+body {
+   overflow-y:scroll;
+}
+
+/*text {
+   font: 12px sans-serif;
+}*/
+
+svg {
+   display: block;
+}
+#chart1 svg {
+   /*height: 500px;*/
+   min-width: 100px;
+   min-height: 100px;
+}
+
+#chart .nv-lineWithFocusChart circle.nv-point {
+   fill-opacity: 1;
+   transition: 200ms;
+}
+circle {
+   stroke: steelblue;
+   transition: 200ms;
+}
+/*
+body { font: 16px Arial;}
+path {
+   stroke: steelblue;
+   stroke-width: 3;
+   fill: none;
+}
+.axis path,
+.axis line {
+   fill: none;
+   stroke: grey;
+   stroke-width: 1;
+   shape-rendering: crispEdges;
+}
+.grid .tick {
+   stroke: lightgrey;
+   opacity: 0.7;
+}
+.grid path {
+   stroke-width: 0;
+}*/
