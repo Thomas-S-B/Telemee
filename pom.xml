@@ -250,7 +250,7 @@
       <connection>scm:git:git@github.com:Thomas-S-B/Telemee.git</connection>
       <url>scm:git:git@github.com:Thomas-S-B/Telemee.git</url>
       <developerConnection>scm:git:git@github.com:Thomas-S-B/Telemee.git</developerConnection>
-      <tag>v0.01</tag>
+      <tag>HEAD</tag>
    </scm>
 
 </project>
