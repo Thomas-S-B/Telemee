@@ -4,7 +4,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>de.strullerbaumann.telemee</groupId>
    <artifactId>telemee</artifactId>
-   <version>1.0.0-SNAPSHOT</version>
+   <version>0.01-SNAPSHOT</version>
    <packaging>war</packaging>
 
    <name>telemee</name>
@@ -146,7 +146,7 @@
          <url>http://repository.jboss.org/nexus/content/groups/public</url>
       </repository>
    </repositories>
-   
+
    <build>
       <finalName>telemee</finalName>
       <plugins>
@@ -247,9 +247,9 @@
    </profiles>
 
    <scm>
-      <connection>scm:git:git@github.com:Thomas-S-B/TelemeeJavaClient.git</connection>
-      <url>scm:git:git@github.com:Thomas-S-B/TelemeeJavaClient.git</url>
-      <developerConnection>scm:git:git@github.com:Thomas-S-B/TelemeeJavaClient.git</developerConnection>
+      <connection>scm:git:git@github.com:Thomas-S-B/Telemee.git</connection>
+      <url>scm:git:git@github.com:Thomas-S-B/Telemee.git</url>
+      <developerConnection>scm:git:git@github.com:Thomas-S-B/Telemee.git</developerConnection>
       <tag>v0.01</tag>
    </scm>
 
