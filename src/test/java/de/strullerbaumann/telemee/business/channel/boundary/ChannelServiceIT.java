@@ -54,7 +54,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 @Transactional(TransactionMode.ROLLBACK)  //alternative to @Inject UserTransaction utx, needed because of em
-public class ChannelServiceTest {
+public class ChannelServiceIT {
 
    @PersistenceContext(unitName = "telemee")
    private EntityManager em;

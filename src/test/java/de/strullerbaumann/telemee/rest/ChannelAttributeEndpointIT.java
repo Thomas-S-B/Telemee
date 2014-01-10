@@ -24,7 +24,6 @@ import de.strullerbaumann.telemee.business.channel.entity.Channel;
 import de.strullerbaumann.telemee.business.channelattribute.entity.ChannelAttribute;
 import de.strullerbaumann.telemee.business.logentry.entity.LogEntry;
 import de.strullerbaumann.telemee.business.logvalue.entity.LogValue;
-import de.strullerbaumann.telemee.business.telemeeapp.boundary.TelemeeAppService;
 import de.strullerbaumann.telemee.business.telemeeapp.entity.TelemeeApp;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,21 +38,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class TelemeeAppEndpointTest {
+public class ChannelAttributeEndpointIT {
 
    @Inject
-   private TelemeeAppEndpoint telemeeAppEndpoint;
+   private ChannelAttributeEndpoint channelAttributeEndpoint;
 
-   private static TelemeeApp persistedTelemeeApp;
+   private static ChannelAttribute persistedChannelAttribute;
 
    @Deployment
    public static JavaArchive createDeployment() {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
-              .addClass(TelemeeAppEndpoint.class)
-              .addClass(TelemeeAppService.class)
               .addClass(TelemeeApp.class)
-              .addClass(Channel.class)
+              .addClass(ChannelAttributeEndpoint.class)
               .addClass(ChannelAttribute.class)
+              .addClass(Channel.class)
               .addClass(LogEntry.class)
               .addClass(LogValue.class)
               .addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml")
@@ -63,74 +61,74 @@ public class TelemeeAppEndpointTest {
    @Test
    @InSequence(1)
    public void testIsDeployed() {
-      Assert.assertNotNull(telemeeAppEndpoint);
+      Assert.assertNotNull(channelAttributeEndpoint);
    }
 
    @Test
    @InSequence(2)
    public void testCreate() {
-      TelemeeApp telemeeApp = new TelemeeApp();
-      telemeeApp.setName("TesttelemeeApp");
-      Assert.assertEquals(null, telemeeApp.getId());
-      persistedTelemeeApp = (TelemeeApp) telemeeAppEndpoint.create(telemeeApp).getEntity();
-      Assert.assertNotNull(telemeeApp.getId());
+      ChannelAttribute channelAttribute = new ChannelAttribute();
+      channelAttribute.setName("Testchannelattribute");
+      Assert.assertEquals(null, channelAttribute.getId());
+      persistedChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.create(channelAttribute).getEntity();
+      Assert.assertNotNull(channelAttribute.getId());
    }
 
    @Test
    @InSequence(3)
    public void testFindById() {
-      Long idToFind = persistedTelemeeApp.getId();
-      TelemeeApp retTelemeeApp = (TelemeeApp) telemeeAppEndpoint.findById(idToFind).getEntity();
-      Assert.assertEquals(idToFind, retTelemeeApp.getId());
+      Long idToFind = persistedChannelAttribute.getId();
+      ChannelAttribute retChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.findById(idToFind).getEntity();
+      Assert.assertEquals(idToFind, retChannelAttribute.getId());
    }
 
    @Test
    @InSequence(4)
    public void testFindByIdFails() {
       Long idToFind = -23l;
-      TelemeeApp retTelemeeApp = (TelemeeApp) telemeeAppEndpoint.findById(idToFind).getEntity();
-      Assert.assertEquals(null, retTelemeeApp);
+      ChannelAttribute retChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.findById(idToFind).getEntity();
+      Assert.assertEquals(null, retChannelAttribute);
    }
 
    @Test
    @InSequence(5)
    public void testFindByName() {
-      String nameToFind = persistedTelemeeApp.getName();
-      TelemeeApp retTelemeeApp = (TelemeeApp) telemeeAppEndpoint.findByName(nameToFind).getEntity();
-      Assert.assertEquals(nameToFind, retTelemeeApp.getName());
+      String nameToFind = persistedChannelAttribute.getName();
+      ChannelAttribute retChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.findByName(nameToFind).getEntity();
+      Assert.assertEquals(nameToFind, retChannelAttribute.getName());
    }
 
    @Test
    @InSequence(6)
    public void testFindByNameFails() {
-      String nameToFind = "James";
-      TelemeeApp retTelemeeApp = (TelemeeApp) telemeeAppEndpoint.findByName(nameToFind).getEntity();
-      Assert.assertEquals(null, retTelemeeApp);
+      String nameToFind = "Jimi";
+      ChannelAttribute retChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.findByName(nameToFind).getEntity();
+      Assert.assertEquals(null, retChannelAttribute);
    }
 
    @Test
    @InSequence(7)
    public void testListAll() {
-      final List<TelemeeApp> listAll = telemeeAppEndpoint.listAll();
+      final List<ChannelAttribute> listAll = channelAttributeEndpoint.listAll();
       Assert.assertEquals(1, listAll.size());
    }
 
    @Test
    @InSequence(8)
    public void testUpdate() {
-      String newName = "Rigby";
-      persistedTelemeeApp.setName(newName);
-      telemeeAppEndpoint.update(persistedTelemeeApp);
-      TelemeeApp retTelemeeApp = (TelemeeApp) telemeeAppEndpoint.findByName(newName).getEntity();
-      Assert.assertEquals(newName, retTelemeeApp.getName());
+      String newName = "Eleanor";
+      persistedChannelAttribute.setName(newName);
+      channelAttributeEndpoint.update(persistedChannelAttribute);
+      ChannelAttribute retChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.findByName(newName).getEntity();
+      Assert.assertEquals(newName, retChannelAttribute.getName());
    }
 
    @Test
    @InSequence(9)
    public void testDeleteById() {
-      Long idToDelete = persistedTelemeeApp.getId();
-      telemeeAppEndpoint.deleteById(idToDelete);
-      TelemeeApp retTelemeeApp = (TelemeeApp) telemeeAppEndpoint.findById(idToDelete).getEntity();
-      Assert.assertEquals(null, retTelemeeApp);
+      Long idToDelete = persistedChannelAttribute.getId();
+      channelAttributeEndpoint.deleteById(idToDelete);
+      ChannelAttribute retChannelAttribute = (ChannelAttribute) channelAttributeEndpoint.findById(idToDelete).getEntity();
+      Assert.assertEquals(null, retChannelAttribute);
    }
 }
